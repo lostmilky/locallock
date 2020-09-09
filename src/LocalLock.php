@@ -1,5 +1,5 @@
 <?php
-namespace Lostmilky\LocalLock;
+namespace Lostmilky;
 
 class LocalLock
 {
@@ -13,21 +13,23 @@ class LocalLock
         return self::$ids[$key];
     }
 
-    public static function checkKey($key)
+    // @ proj Project identifier. This must be a one character string. 
+    public static function checkKey($proj)
     {
-        if(1 != strlen($key) ) {
-            throw new \Exception('key must a ASCII character', 403);
+        if(1 != strlen($proj) ) {
+            throw new \Exception('This must be a one character string', 403);
         }
         
-        $encode = mb_detect_encoding($keytitle, array("ASCII","UTF-8","GB2312","GBK","BIG5"));
+        $encode = mb_detect_encoding($proj, array("ASCII","UTF-8","GB2312","GBK","BIG5"));
         if($encode !== "ASCII"){
-            throw new \Exception('key must a ASCII character', 403);
+            throw new \Exception('This must be a one character string', 403);
         }
         return true;
     }
 
     public static function lock($key)
     {
+        self::checkKey($key);
         $id = self::getSemId($key);
         sem_acquire($id);
     }
