@@ -1,6 +1,6 @@
 {
     "name": "lostmilky/locallock",
-    "description": "一个高效的单机锁",
+    "description": "一个信号量实现的高效单机锁",
     "type": "library",
     "license": "MIT",
     "authors": [
