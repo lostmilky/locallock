@@ -1,5 +1,5 @@
 <?php
-namespace Lostmilky;
+namespace Lostmilky\LocalLock;
 
 class LocalLock
 {

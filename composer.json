@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Lostmilky\\": "src/"
+            "Lostmilky\\LocalLock\\": "src/"
         }
     }
 }
