@@ -12,6 +12,11 @@
 - Linux
 - PHP 7.1.3+
 
+### 安装
+```
+composer require lostmilky/locallock
+```
+
 ### Demo
 ```
 $key = 'a';  // 这里只能是单个的 ASCII 字符串
