@@ -5,15 +5,30 @@ class LocalLock
 {
     public static $ids = [];
 
-    private static function getSemId($key)
+    /**
+     * Desc: get a positive semaphore identifier
+     * @param $proj
+     * @return mixed
+     * @throws \Exception
+     * Date: 2020-09-10 10:49
+     */
+    private static function getSemId($proj)
     {
-        if(!isset(self::$ids[$key]) ) {
-            self::$ids[$key] = sem_get(ftok(__FILE__, $key) );
+        if(!isset(self::$ids[$proj]) ) {
+            self::checkKey($proj);
+            self::$ids[$proj] = sem_get(ftok(__FILE__, $proj) );
         }
-        return self::$ids[$key];
+        return self::$ids[$proj];
     }
 
-    // @ proj Project identifier. This must be a one character string. 
+
+    /**
+     * Desc: Check parameter key
+     * @param $proj Project identifier. This must be a one character string.
+     * @return bool
+     * @throws \Exception
+     * Date: 2020-09-10 10:49
+     */
     public static function checkKey($proj)
     {
         if(1 != strlen($proj) ) {
@@ -27,16 +42,27 @@ class LocalLock
         return true;
     }
 
-    public static function lock($key)
+    /**
+     * Desc: add local lock
+     * @param $proj
+     * @throws \Exception
+     * Date: 2020-09-10 10:51
+     */
+    public static function lock($proj)
     {
-        self::checkKey($key);
-        $id = self::getSemId($key);
+        $id = self::getSemId($proj);
         sem_acquire($id);
     }
 
-    public static function unlock($key)
+    /**
+     * Desc: release local lock
+     * @param $proj
+     * @throws \Exception
+     * Date: 2020-09-10 10:51
+     */
+    public static function unlock($proj)
     {
-        $id = self::getSemId($key);
+        $id = self::getSemId($proj);
         sem_release($id);
     }
 }

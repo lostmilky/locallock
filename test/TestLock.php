@@ -6,10 +6,7 @@ require_once '../vendor/autoload.php';
 
 use Lostmilky\LocalLock;
 
-$a = new LocalLock();
-
 $mark = mt_rand(1000, 9999);
-
 $key = 'a';
 for ($i=0; $i < 10; $i++) { 
     LocalLock::lock($key);
