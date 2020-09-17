@@ -1,5 +1,5 @@
 {
-    "name": "lostmilky/locallock",
+    "name": "lostmilky/localLock",
     "description": "一个信号量实现的高效单机锁",
     "type": "library",
     "license": "MIT",
@@ -15,7 +15,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Lostmilky\\LocalLock\\": "src/"
+            "Lostmilky\\Locallock\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lostmilky\\Locallock\\LocalLockProvider"
+            ],
+            "aliases": {
+                "Locallock": "Lostmilky\\Locallock\\Facades\\LocalLock"
+            }
         }
     }
 }

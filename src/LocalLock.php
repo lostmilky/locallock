@@ -1,40 +1,47 @@
 <?php
-namespace Lostmilky\LocalLock;
+namespace Lostmilky\Locallock;
 
 class LocalLock
 {
-    public static $ids = [];
+    public $ids;
+
+    public function __construct()
+    {
+        $this->ids = [];
+    }
 
     /**
-     * Desc: get a positive semaphore identifier
+     * Desc: Get a positive semaphore identifier
      * @param $proj
      * @return mixed
      * @throws \Exception
-     * Date: 2020-09-10 10:49
+     * @author lostmilky zzyydd520@163.com
+     * Date: 2020/9/17 14:55
      */
-    private static function getSemId($proj)
+    public function getSemId($proj)
     {
-        if(!isset(self::$ids[$proj]) ) {
-            self::checkKey($proj);
-            self::$ids[$proj] = sem_get(ftok(__FILE__, $proj) );
+        if(!isset($this->ids[$proj]) ) {
+            $this->checkKey($proj);
+            $this->ids[$proj] = sem_get(ftok(__FILE__, $proj) );
         }
-        return self::$ids[$proj];
+        return $this->ids[$proj];
     }
 
 
     /**
      * Desc: Check parameter key
-     * @param $proj Project identifier. This must be a one character string.
+     * @param $proj
      * @return bool
      * @throws \Exception
-     * Date: 2020-09-10 10:49
+     * @author lostmilky zzyydd520@163.com
+     * Date: 2020/9/17 14:55
      */
-    public static function checkKey($proj)
+    public function checkKey($proj)
     {
         if(1 != strlen($proj) ) {
             throw new \Exception('This must be a one character string', 403);
         }
-        
+
         $encode = mb_detect_encoding($proj, array("ASCII","UTF-8","GB2312","GBK","BIG5"));
         if($encode !== "ASCII"){
             throw new \Exception('This must be a one character string', 403);
@@ -43,26 +50,28 @@ class LocalLock
     }
 
     /**
-     * Desc: add local lock
+     * Desc: Add local lock
      * @param $proj
      * @throws \Exception
-     * Date: 2020-09-10 10:51
+     * @author lostmilky zzyydd520@163.com
+     * Date: 2020/9/17 14:56
      */
-    public static function lock($proj)
+    public function lock($proj)
     {
-        $id = self::getSemId($proj);
+        $id = $this->getSemId($proj);
         sem_acquire($id);
     }
 
     /**
-     * Desc: release local lock
+     * Desc: Release local lock
      * @param $proj
      * @throws \Exception
-     * Date: 2020-09-10 10:51
+     * @author lostmilky zzyydd520@163.com
+     * Date: 2020/9/17 14:56
      */
-    public static function unlock($proj)
+    public function unlock($proj)
     {
-        $id = self::getSemId($proj);
+        $id = $this->getSemId($proj);
         sem_release($id);
     }
 }
