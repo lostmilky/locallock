@@ -12,22 +12,32 @@
 - Linux
 - PHP 7.1.3+
 
-### 安装
+### laravel 安装
 ```
 composer require lostmilky/locallock
 ```
 
+> laravel 需要修改 app/config/app.php
+> 
+> providers 里增加 Lostmilky\Locallock\LocalLockProvider::class
+
+
+
 ### Demo
 ```
-$key = 'a';  // 这里只能是单个的 ASCII 字符串
+<?php
+use Lostmilky\Locallock\LocalLock; 
+
 
 try{
-    LocalLock::lock($key);    // 加锁
+    $lock = new LocalLock();
+    $key = 'a';  // 这里只能是单个的 ASCII 字符串
+    $lock->lock($key);    // 加锁
     doSomeThing();  
     
-    LocalLock::unlock($key);  // 释放锁
+    $lock->unlock($key);  // 释放锁
 } catch (\Exception $e) {
-    LocalLock::unlock($key);  // 出异常，释放锁
+    $lock->unlock($key);  // 出异常，释放锁
 }
 
 ```
