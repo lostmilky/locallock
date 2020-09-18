@@ -3,8 +3,11 @@ namespace Lostmilky\Locallock;
 
 class LocalLock
 {
-    public $ids;
+    public $ids;   //
 
+    /**
+     * LocalLock constructor.
+     */
     public function __construct()
     {
         $this->ids = [];
@@ -26,7 +29,6 @@ class LocalLock
         }
         return $this->ids[$proj];
     }
-
 
     /**
      * Desc: Check parameter key
