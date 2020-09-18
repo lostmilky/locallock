@@ -9,7 +9,7 @@
             "email": "zzyydd520@163.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "v1.2.3",
     "require": {
         "php": "^7.1.3"
     },
