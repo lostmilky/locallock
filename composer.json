@@ -1,5 +1,5 @@
 {
-    "name": "lostmilky/localLock",
+    "name": "lostmilky/locallock",
     "description": "一个信号量实现的高效单机锁",
     "type": "library",
     "license": "MIT",
@@ -9,7 +9,7 @@
             "email": "zzyydd520@163.com"
         }
     ],
-    "minimum-stability": "v1.2.3",
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.1.3"
     },
